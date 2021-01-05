@@ -970,7 +970,8 @@ class OrderQuery extends ElementQuery
             }
         }
 
-        if ($commerce && version_compare($commerce['version'], '3.0.7', '>=')) {
+        // Hack: Removed the 3.0.7 conditional from the below in order to work with dev fork
+        if ($commerce) {
             $this->query->addSelect([
                 'storedTotalPrice' => 'commerce_orders.totalPrice',
                 'storedTotalPaid' => 'commerce_orders.totalPaid',
