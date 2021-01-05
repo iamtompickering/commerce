@@ -274,11 +274,13 @@ class ShippingRule extends Model implements ShippingRuleInterface
             return false;
         }
 
+        $totalMinusDiscount = $order->itemSubtotal + $order->storedTotalDiscount;
+
         // order total rules exclude maximum limit (min <= x < max)
-        if ($this->minTotal && $this->minTotal > $order->getItemSubtotal()) {
+        if ($this->minTotal && $this->minTotal > $totalMinusDiscount ) {
             return false;
         }
-        if ($this->maxTotal && $this->maxTotal <= $order->getItemSubtotal()) {
+        if ($this->maxTotal && $this->maxTotal <= $totalMinusDiscount ) {
             return false;
         }
 
