@@ -29,7 +29,8 @@ class TotalRevenue extends Stat
     public function getData()
     {
         $query = $this->_createStatQuery();
-        $query->select([new Expression('COUNT([[orders.id]]) as total')])->where(['!=', 'orderStatusId', 7]);
+        $query->select([new Expression('COUNT([[orders.id]]) as total')]);
+        $query->andWhere(['not', ['orderStatusId' => 7]]);
 
         return $chartData = $this->_createChartQuery([
             new Expression('SUM([[total]]) as revenue'),
